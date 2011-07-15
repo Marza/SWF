@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sun-web-app PUBLIC "-//Sun Microsystems, Inc.//DTD GlassFish Application Server 3.0 Servlet 3.0//EN" "http://www.sun.com/software/appserver/dtds/sun-web-app_3_0-0.dtd">
+<sun-web-app error-url="">
+  <context-root>/webtest</context-root>
+
+  <session-config>
+    <session-manager persistence-type="memory">
+      <manager-properties>
+        <property name="sessionFilename" value=""/>
+      </manager-properties>
+    </session-manager>
+  </session-config>
+  <jsp-config>
+    <property name="development" value="false"/>
+    <property name="mappedfile" value="false"/>
+    <property name="trimSpaces" value="true"/>
+    <property name="suppressSmap" value="true"/>
+    <property name="classdebuginfo" value="false"/>
+  </jsp-config>
+  <parameter-encoding default-charset="UTF-8"/>
+</sun-web-app>
