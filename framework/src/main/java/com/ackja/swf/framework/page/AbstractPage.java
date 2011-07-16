@@ -1,5 +1,6 @@
 package com.ackja.swf.framework.page;
 
+import com.ackja.swf.framework.Logger;
 import com.ackja.swf.framework.response.Response;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,6 +21,7 @@ public abstract class AbstractPage implements Response
 
 			if (stream == null)
 			{
+				Logger.info("Failed to find markup file for class: " + this.getClass().getCanonicalName());
 				return null;
 			}
 
@@ -36,7 +38,7 @@ public abstract class AbstractPage implements Response
 		}
 		catch (final IOException e)
 		{
-			e.printStackTrace();
+			// do nothing
 		}
 		finally
 		{
@@ -49,7 +51,7 @@ public abstract class AbstractPage implements Response
 			}
 			catch (final IOException e)
 			{
-				System.out.println("Failed to close stream.");
+				Logger.warn("Failed to close input stream.", e);
 			}
 		}
 

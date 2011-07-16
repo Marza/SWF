@@ -4,8 +4,9 @@ package com.ackja.swf.framework.factory;
  *
  * @author Tony Marjakangas | tony@marza.se
  */
-public class ClassFactory
+public final class ClassFactory
 {
+	private ClassFactory() {}
 
 	public static final Object createClass(final String className)
 	{
@@ -15,7 +16,7 @@ public class ClassFactory
 		}
 		catch (final ClassNotFoundException e)
 		{
-
+			// do nothing
 		}
 
 		return null;
@@ -29,11 +30,11 @@ public class ClassFactory
 		}
 		catch (final InstantiationException e)
 		{
-
+			// do nothing
 		}
 		catch (final IllegalAccessException e)
 		{
-
+			// do nothing
 		}
 
 		return null;
