@@ -64,6 +64,8 @@ public class PageRequestCodingStrategy implements IRequestCodingStrategy
 
 		if (res != null)
 		{
+			response.setHeader("Content-Type", "text/html;charset=utf-8");
+
 			return res;
 		}
 
