@@ -10,6 +10,21 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface IRequestCodingStrategy
 {
+	/**
+	 * Checks if the request matches this request coding strategy.
+	 *
+	 * @param request the servlet request.
+	 * @param response the servlet response.
+	 * @return true if request matches otherwise false.
+	 */
 	boolean matches(HttpServletRequest request, HttpServletResponse response);
+
+	/**
+	 * Returns the response for this request.
+	 *
+	 * @param request the servlet request.
+	 * @param response the servlet response.
+	 * @return the response.
+	 */
 	Response response(HttpServletRequest request, HttpServletResponse response);
 }

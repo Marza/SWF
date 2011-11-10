@@ -21,6 +21,12 @@ public class SwfFilter implements Filter
 {
 	private static SwfApplication application = null;
 
+	/**
+	 * Initializes the servlet filter.
+	 *
+	 * @param filterConfig the filter configuration.
+	 * @throws ServletException thrown if failed to instantiate the application class.
+	 */
 	@Override
 	public void init(final FilterConfig filterConfig) throws ServletException
 	{
@@ -34,6 +40,15 @@ public class SwfFilter implements Filter
 		}
 	}
 
+	/**
+	 * Handles a request to the filter.
+	 *
+	 * @param request the servlet request.
+	 * @param response the servlet response.
+	 * @param chain the filter chain.
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	@Override
 	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain) throws IOException, ServletException
 	{
@@ -67,6 +82,11 @@ public class SwfFilter implements Filter
 		// do nothing
 	}
 
+	/**
+	 * Returns the current application instance.
+	 *
+	 * @return the current application instance.
+	 */
 	public static SwfApplication getApplication()
 	{
 		return application;

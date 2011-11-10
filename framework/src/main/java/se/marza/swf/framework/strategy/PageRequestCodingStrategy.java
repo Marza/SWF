@@ -15,6 +15,12 @@ public class PageRequestCodingStrategy implements IRequestCodingStrategy
 	private final String mountPath;
 	private final Class<? extends AbstractPage> pageClass;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param mountPath the mount path.
+	 * @param pageClass the page class.
+	 */
 	public PageRequestCodingStrategy(final String mountPath, final Class<? extends AbstractPage> pageClass)
 	{
 		if (mountPath == null || pageClass == null)
@@ -26,6 +32,13 @@ public class PageRequestCodingStrategy implements IRequestCodingStrategy
 		this.pageClass = pageClass;
 	}
 
+	/**
+	 * @see IRequestCodingStrategy#matches(HttpServletRequest, HttpServletResponse)
+	 *
+	 * @param request the servlet request.
+	 * @param response the servlet response.
+	 * @return true if request matches otherwise false.
+	 */
 	@Override
 	public boolean matches(final HttpServletRequest request, final HttpServletResponse response)
 	{
@@ -37,6 +50,13 @@ public class PageRequestCodingStrategy implements IRequestCodingStrategy
 		return false;
 	}
 
+	/**
+	 * @see IRequestCodingStrategy#response(HttpServletRequest, HttpServletResponse)
+	 *
+	 * @param request the servlet request.
+	 * @param response the servlet response.
+	 * @return the response.
+	 */
 	@Override
 	public Response response(final HttpServletRequest request, final HttpServletResponse response)
 	{
@@ -50,12 +70,23 @@ public class PageRequestCodingStrategy implements IRequestCodingStrategy
 		throw new RuntimeException("Failed to initialise page class");
 	}
 
+	/**
+	 * @see Object#hashCode()
+	 *
+	 * @return the hash code.
+	 */
 	@Override
 	public int hashCode()
 	{
 		return (31 + this.mountPath.hashCode()) * 31 + this.pageClass.hashCode();
 	}
 
+	/**
+	 * @see Object#equals(Object)
+	 *
+	 * @param object the other object to check equality against.
+	 * @return true if both objects are equal otherwise false.
+	 */
 	@Override
 	public boolean equals(final Object object)
 	{

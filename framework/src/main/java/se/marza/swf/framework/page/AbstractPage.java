@@ -11,6 +11,11 @@ import java.io.InputStream;
  */
 public abstract class AbstractPage implements Response
 {
+	/**
+	 * @see Response#response()
+	 *
+	 * @return the response.
+	 */
 	@Override
 	public final String response()
 	{
@@ -38,7 +43,7 @@ public abstract class AbstractPage implements Response
 		}
 		catch (final IOException e)
 		{
-			// do nothing
+			Logger.warn("IOException thrown while trying to read markup file.", e);
 		}
 		finally
 		{

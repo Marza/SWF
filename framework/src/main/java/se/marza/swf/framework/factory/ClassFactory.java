@@ -1,14 +1,25 @@
 package se.marza.swf.framework.factory;
 
+import se.marza.swf.framework.Logger;
+
 /**
  *
  * @author Tony Marjakangas | tony@marza.se
  */
 public final class ClassFactory
 {
+	/**
+	 * Prohibits instantiation.
+	 */
 	private ClassFactory() {}
 
-	public static final Object createClass(final String className)
+	/**
+	 * Creates an instance of a class.
+	 *
+	 * @param className the name of the class to instantiate.
+	 * @return an instance of the class or null if failed to instantiate.
+	 */
+	public static Object createClass(final String className)
 	{
 		try
 		{
@@ -16,13 +27,19 @@ public final class ClassFactory
 		}
 		catch (final ClassNotFoundException e)
 		{
-			// do nothing
+			Logger.warn("Class [" + className +  " not found.", e);
 		}
 
 		return null;
 	}
 
-	public static final Object createClass(final Class<?> clazz)
+	/**
+	 * Creates and instance of a class.
+	 *
+	 * @param clazz the class to instantiate.
+	 * @return an instance of the class or null if failed to instantiate.
+	 */
+	public static Object createClass(final Class<?> clazz)
 	{
 		try
 		{
@@ -30,11 +47,11 @@ public final class ClassFactory
 		}
 		catch (final InstantiationException e)
 		{
-			// do nothing
+			Logger.warn("Cannot instantiate [" + clazz.getName() + "]", e);
 		}
 		catch (final IllegalAccessException e)
 		{
-			// do nothing
+			Logger.warn("Not allowed to create instance of [" + clazz.getName() +"]", e);
 		}
 
 		return null;

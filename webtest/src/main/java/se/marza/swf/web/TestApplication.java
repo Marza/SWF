@@ -23,9 +23,4 @@ public class TestApplication extends SwfApplication
 	{
 		return (TestApplication) SwfApplication.get();
 	}
-
-	public String other()
-	{
-		return "OTHER";
-	}
 }

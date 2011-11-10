@@ -6,5 +6,10 @@ package se.marza.swf.framework.response;
  */
 public interface Response
 {
+	/**
+	 * Returns the response.
+	 *
+	 * @return the response.
+	 */
 	String response();
 }
