@@ -26,17 +26,17 @@ public abstract class AbstractPage implements Response
 
 			if (stream == null)
 			{
-				Logger.info("Failed to find markup file for class: " + this.getClass().getCanonicalName());
+				Logger.warn("Failed to find markup file for class: " + this.getClass().getCanonicalName());
 				return null;
 			}
 
 			final int length = stream.available();
-			byte[] arr = new byte[length];
+			final byte[] arr = new byte[length];
 
 			int offset = 0;
 			while (stream.available() > 0)
 			{
-				offset += stream.read(arr, offset, length-offset);
+				offset += stream.read(arr, offset, length - offset);
 			}
 
 			return new String(arr);
