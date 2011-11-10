@@ -6,7 +6,7 @@ import se.marza.swf.framework.page.AbstractPage;
  *
  * @author Tony Marjakangas | tony@marza.se
  */
-public class TestOtherPage extends AbstractPage
+public class OtherPage extends AbstractPage
 {
 
 }
