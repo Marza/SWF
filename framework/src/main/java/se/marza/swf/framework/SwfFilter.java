@@ -1,8 +1,8 @@
-package com.ackja.swf.framework;
+package se.marza.swf.framework;
 
-import com.ackja.swf.framework.factory.ClassFactory;
-import com.ackja.swf.framework.factory.PageFactory;
-import com.ackja.swf.framework.response.Response;
+import se.marza.swf.framework.factory.ClassFactory;
+import se.marza.swf.framework.factory.PageFactory;
+import se.marza.swf.framework.response.Response;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

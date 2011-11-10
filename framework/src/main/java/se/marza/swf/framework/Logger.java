@@ -1,4 +1,4 @@
-package com.ackja.swf.framework;
+package se.marza.swf.framework;
 
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;

@@ -18,7 +18,7 @@
   <dependencies>
 		<dependency>
 			<artifactId>framework</artifactId>
-			<groupId>com.ackja.swf</groupId>
+			<groupId>se.marza.swf</groupId>
 			<version>${swf.framework.version}</version>
 		</dependency>
   </dependencies>

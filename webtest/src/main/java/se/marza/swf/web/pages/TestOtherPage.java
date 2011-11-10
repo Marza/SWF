@@ -1,6 +1,6 @@
-package com.ackja.swf.web.pages;
+package se.marza.swf.web.pages;
 
-import com.ackja.swf.framework.page.AbstractPage;
+import se.marza.swf.framework.page.AbstractPage;
 
 /**
  *

@@ -1,4 +1,4 @@
-package com.ackja.swf.framework.response;
+package se.marza.swf.framework.response;
 
 /**
  *

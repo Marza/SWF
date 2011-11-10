@@ -1,6 +1,6 @@
-package com.ackja.swf.framework.factory;
+package se.marza.swf.framework.factory;
 
-import com.ackja.swf.framework.page.AbstractPage;
+import se.marza.swf.framework.page.AbstractPage;
 
 /**
  *

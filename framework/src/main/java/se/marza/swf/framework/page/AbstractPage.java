@@ -1,7 +1,7 @@
-package com.ackja.swf.framework.page;
+package se.marza.swf.framework.page;
 
-import com.ackja.swf.framework.Logger;
-import com.ackja.swf.framework.response.Response;
+import se.marza.swf.framework.Logger;
+import se.marza.swf.framework.response.Response;
 import java.io.IOException;
 import java.io.InputStream;
 

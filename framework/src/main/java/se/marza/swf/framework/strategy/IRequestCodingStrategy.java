@@ -1,6 +1,6 @@
-package com.ackja.swf.framework.strategy;
+package se.marza.swf.framework.strategy;
 
-import com.ackja.swf.framework.response.Response;
+import se.marza.swf.framework.response.Response;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

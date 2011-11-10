@@ -1,4 +1,4 @@
-package com.ackja.swf.framework.factory;
+package se.marza.swf.framework.factory;
 
 /**
  *

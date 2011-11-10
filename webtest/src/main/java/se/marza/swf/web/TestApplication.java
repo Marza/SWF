@@ -1,9 +1,9 @@
-package com.ackja.swf.web;
+package se.marza.swf.web;
 
-import com.ackja.swf.web.pages.Test404Page;
-import com.ackja.swf.web.pages.TestPage;
-import com.ackja.swf.web.pages.TestOtherPage;
-import com.ackja.swf.framework.SwfApplication;
+import se.marza.swf.framework.SwfApplication;
+import se.marza.swf.web.pages.Test404Page;
+import se.marza.swf.web.pages.TestPage;
+import se.marza.swf.web.pages.TestOtherPage;
 
 /**
  *

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-	
+
 	<display-name>SWF webtest</display-name>
 
 	<session-config>
@@ -13,10 +13,10 @@
 
 	<filter>
 		<filter-name>swfFilter</filter-name>
-		<filter-class>com.ackja.swf.framework.SwfFilter</filter-class>
+		<filter-class>se.marza.swf.framework.SwfFilter</filter-class>
 		<init-param>
 			<param-name>applicationClassName</param-name>
-			<param-value>com.ackja.swf.web.TestApplication</param-value>
+			<param-value>se.marza.swf.web.TestApplication</param-value>
 		</init-param>
 	</filter>
 
@@ -24,5 +24,5 @@
 		<filter-name>swfFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
+
 </web-app>
