@@ -104,4 +104,14 @@ public class PageRequestCodingStrategy implements IRequestCodingStrategy
 
 		return false;
 	}
+
+	public String getMountPath()
+	{
+		return this.mountPath;
+	}
+
+	public Class<? extends AbstractPage> getPageClass()
+	{
+		return this.pageClass;
+	}
 }

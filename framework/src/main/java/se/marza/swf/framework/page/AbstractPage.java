@@ -17,16 +17,15 @@ public abstract class AbstractPage implements Response
 	 * @return the response.
 	 */
 	@Override
-	public final String response()
+	public String response()
 	{
 		InputStream stream = null;
 		try
 		{
-			stream = this.getClass().getResourceAsStream(this.getClass().getSimpleName() + ".html");
+			stream = this.getMarkupStream();
 
 			if (stream == null)
 			{
-				Logger.warn("Failed to find markup file for class: " + this.getClass().getCanonicalName());
 				return null;
 			}
 
@@ -61,5 +60,18 @@ public abstract class AbstractPage implements Response
 		}
 
 		return null;
+	}
+
+	protected InputStream getMarkupStream()
+	{
+		final InputStream stream = this.getClass().getResourceAsStream(this.getClass().getSimpleName() + ".html");
+
+		if (stream == null)
+		{
+			Logger.warn("Failed to find markup file for class: " + this.getClass().getCanonicalName());
+			return null;
+		}
+
+		return stream;
 	}
 }

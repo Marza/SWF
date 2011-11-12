@@ -21,6 +21,11 @@
 			<groupId>se.marza.swf</groupId>
 			<version>${swf.framework.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.htmlparser</groupId>
+			<artifactId>htmlparser</artifactId>
+			<version>2.1</version>
+		</dependency>
   </dependencies>
 
   <build>
