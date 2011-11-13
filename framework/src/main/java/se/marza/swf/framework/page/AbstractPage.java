@@ -4,6 +4,8 @@ import se.marza.swf.framework.Logger;
 import se.marza.swf.framework.response.Response;
 import java.io.IOException;
 import java.io.InputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -12,12 +14,14 @@ import java.io.InputStream;
 public abstract class AbstractPage implements Response
 {
 	/**
+	 * @param request the servlet request.
+	 * @param response the servlet response.
 	 * @see Response#response()
 	 *
 	 * @return the response.
 	 */
 	@Override
-	public String response()
+	public String response(final HttpServletRequest request, final HttpServletResponse response)
 	{
 		InputStream stream = null;
 		try

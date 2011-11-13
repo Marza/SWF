@@ -68,7 +68,7 @@ public class SwfFilter implements Filter
 
 		if (res != null)
 		{
-			response.getWriter().print(res.response());
+			response.getWriter().print(res.response((HttpServletRequest)request, (HttpServletResponse)response));
 		}
 		else
 		{

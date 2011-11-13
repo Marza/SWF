@@ -1,5 +1,7 @@
 package se.marza.swf.web.pages;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.htmlparser.Parser;
 import org.htmlparser.Tag;
 import org.htmlparser.util.NodeList;
@@ -16,13 +18,13 @@ import se.marza.swf.framework.page.AbstractPage;
 public class OtherPage extends AbstractPage
 {
 	@Override
-	public String response()
+	public String response(final HttpServletRequest request, final HttpServletResponse response)
 	{
 		try
 		{
-			Parser parser = new Parser(super.response());
+			Parser parser = new Parser(super.response(request, response));
 			NodeList nl = parser.parse(null);
-			nl.visitAllNodesWith(new MyNodeVisitor());
+			nl.visitAllNodesWith(new MyNodeVisitor(request));
 
 			return nl.toHtml();
 		}
@@ -36,12 +38,19 @@ public class OtherPage extends AbstractPage
 
 	private static final class MyNodeVisitor extends NodeVisitor
 	{
+		private final HttpServletRequest request;
+
+		public MyNodeVisitor(final HttpServletRequest request)
+		{
+			this.request = request;
+		}
+
 		@Override
 		public void visitTag(final Tag tag)
 		{
 			if (tag.getTagName().equals("A") && tag.getAttribute("swf:id").equals("index-link"))
 			{
-				tag.setAttribute("href", SwfApplication.get().getUrlForPage(IndexPage.class));
+				tag.setAttribute("href", SwfApplication.get().getUrlForPage(IndexPage.class, this.request));
 			}
 
 			super.visitTag(tag);

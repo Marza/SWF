@@ -1,5 +1,7 @@
 package se.marza.swf.framework.strategy;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import se.marza.swf.framework.page.AbstractPage;
 import se.marza.swf.framework.factory.PageFactory;
 import se.marza.swf.framework.response.Response;
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class PageRequestCodingStrategy implements IRequestCodingStrategy
 {
+  private static final Pattern pattern = Pattern.compile("(\\.\\./)");
+
 	private final String mountPath;
 	private final Class<? extends AbstractPage> pageClass;
 
@@ -60,13 +64,13 @@ public class PageRequestCodingStrategy implements IRequestCodingStrategy
 	@Override
 	public Response response(final HttpServletRequest request, final HttpServletResponse response)
 	{
-		final Response res = PageFactory.createPage(this.pageClass);
+		final Response page = PageFactory.createPage(this.pageClass);
 
-		if (res != null)
+		if (page != null)
 		{
 			response.setHeader("Content-Type", "text/html;charset=utf-8");
 
-			return res;
+			return page;
 		}
 
 		throw new RuntimeException("Failed to initialise page class");
@@ -110,8 +114,66 @@ public class PageRequestCodingStrategy implements IRequestCodingStrategy
 		return this.mountPath;
 	}
 
+	public String getPageURL(final HttpServletRequest request)
+	{
+		return createAbsoluteUrlFromRelative(request, this.mountPath);
+	}
+
 	public Class<? extends AbstractPage> getPageClass()
 	{
 		return this.pageClass;
+	}
+
+  /**
+   * Creates an absolute URL from a relative URL.
+   *
+   * Steps through a relative URL and searches for ../ and modifies the <code>requestUrl</code> accordingly.
+   *
+   * @param request the HttpServletRequest.
+   * @param relativeUrl the relative URL for the link.
+   * @return the absolute URL.
+   */
+  public static String createAbsoluteUrlFromRelative(final HttpServletRequest request, final String relativeUrl)
+  {
+    String requestUrl = createRealRequestUrl(request);
+
+    final Matcher matcher = pattern.matcher(relativeUrl);
+
+    int index = requestUrl.lastIndexOf('/');
+    if (index > 8)
+    {
+      requestUrl = requestUrl.substring(0, index);
+    }
+
+    while (matcher.find())
+    {
+      index = requestUrl.lastIndexOf('/');
+      if (index > 8)
+      {
+        requestUrl = requestUrl.substring(0, index);
+      }
+    }
+
+    /*if (requestUrl.charAt(requestUrl.length()-1) != '/')
+    {
+      requestUrl = requestUrl.concat("/");
+    }*/
+
+    requestUrl = requestUrl.concat(matcher.replaceAll(""));
+
+    return requestUrl;
+  }
+
+	public static String createRealRequestUrl(final HttpServletRequest request)
+	{
+		final String xRequestUrl = request.getHeader("x-forwarded-url");
+		if (xRequestUrl != null && !xRequestUrl.isEmpty())
+		{
+			return xRequestUrl;
+		}
+		else
+		{
+			return request.getRequestURL().toString();
+		}
 	}
 }

@@ -51,17 +51,17 @@ public abstract class SwfApplication
 		return this.notFoundPageClass;
 	}
 
-	public String getUrlForPage(final Class<? extends AbstractPage> pageClass)
+	public String getUrlForPage(final Class<? extends AbstractPage> pageClass, final HttpServletRequest request)
 	{
 		for (final IRequestCodingStrategy strategy : this.strategies)
 		{
 			if (strategy instanceof PageRequestCodingStrategy)
 			{
 				final PageRequestCodingStrategy pageStrategy = (PageRequestCodingStrategy) strategy;
-				
+
 				if (pageStrategy.getPageClass().equals(pageClass))
 				{
-					return pageStrategy.getMountPath();
+					return pageStrategy.getPageURL(request);
 				}
 			}
 		}
