@@ -50,6 +50,11 @@ public abstract class SwfApplication
 	 */
 	protected final void mountPage(final String mountPath, final Class<? extends AbstractPage> pageClass)
 	{
+		if (mountPath == null || mountPath.isEmpty() || pageClass == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
 		this.mount(new PageRequestCodingStrategy(mountPath, pageClass));
 	}
 
@@ -60,6 +65,11 @@ public abstract class SwfApplication
 	 */
 	protected final void mount(final IRequestCodingStrategy strategy)
 	{
+		if (strategy == null)
+		{
+			throw new IllegalArgumentException("strategy cannot be null.");
+		}
+
 		this.strategies.add(strategy);
 	}
 
@@ -148,6 +158,11 @@ public abstract class SwfApplication
 	 */
 	public void setPageRenderer(final PageRenderer renderer)
 	{
+		if (renderer == null)
+		{
+			throw new IllegalArgumentException("renderer cannot be null.");
+		}
+
 		this.pageRenderer = renderer;
 	}
 }
