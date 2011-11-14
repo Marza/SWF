@@ -12,6 +12,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import se.marza.swf.framework.response.PageResponse;
 
 /**
  *
@@ -53,17 +54,31 @@ public class SwfFilter implements Filter
 	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain) throws IOException, ServletException
 	{
 		Response res = null;
-		if (request instanceof HttpServletRequest && response instanceof HttpServletResponse)
+		try
 		{
-			res = application.resolve((HttpServletRequest)request, (HttpServletResponse)response);
+			if (request instanceof HttpServletRequest && response instanceof HttpServletResponse)
+			{
+				res = application.resolve((HttpServletRequest)request, (HttpServletResponse)response);
+			}
+
+			if (res == null && application.getNotFoundPageClass() != null)
+			{
+				res = new PageResponse(PageFactory.createPage(application.getNotFoundPageClass()));
+
+				final HttpServletResponse httpResponse = (HttpServletResponse) response;
+				httpResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			}
 		}
-
-		if (res == null && application.getNotFoundPageClass() != null)
+		catch (final RuntimeException e)
 		{
-			res = PageFactory.createPage(application.getNotFoundPageClass());
-
-			final HttpServletResponse httpResponse = (HttpServletResponse) response;
-			httpResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			if (application.getErrorPageClass() != null)
+			{
+				res = new PageResponse(PageFactory.createPage(application.getErrorPageClass()));
+			}
+			else
+			{
+				throw e;
+			}
 		}
 
 		if (res != null)
@@ -76,6 +91,9 @@ public class SwfFilter implements Filter
 		}
 	}
 
+	/**
+	 * @see Filter#destroy()
+	 */
 	@Override
 	public void destroy()
 	{

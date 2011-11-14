@@ -4,15 +4,49 @@ import se.marza.swf.framework.Logger;
 import se.marza.swf.framework.response.Response;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import se.marza.swf.framework.components.Component;
 
 /**
  *
  * @author Tony Marjakangas | tony@marza.se
  */
-public abstract class AbstractPage implements Response
+public abstract class AbstractPage
 {
+	private final Set<Component> components = new HashSet<Component>();
+
+	/**
+	 * Adds a component to the page.
+	 *
+	 * @param component the component to add.
+	 * @return this page.
+	 */
+	protected final AbstractPage add(final Component component)
+	{
+		if (component == null)
+		{
+			throw new IllegalArgumentException("Component cannot be null.");
+		}
+
+		this.components.add(component);
+
+		return this;
+	}
+
+	/**
+	 * Returns the components.
+	 *
+	 * @return the components.
+	 */
+	public final Set<Component> getComponents()
+	{
+		return Collections.unmodifiableSet(this.components);
+	}
+
 	/**
 	 * @param request the servlet request.
 	 * @param response the servlet response.
@@ -20,8 +54,7 @@ public abstract class AbstractPage implements Response
 	 *
 	 * @return the response.
 	 */
-	@Override
-	public String response(final HttpServletRequest request, final HttpServletResponse response)
+	public String getMarkup(final HttpServletRequest request, final HttpServletResponse response)
 	{
 		InputStream stream = null;
 		try
@@ -66,6 +99,11 @@ public abstract class AbstractPage implements Response
 		return null;
 	}
 
+	/**
+	 * Returns the markup stream.
+	 *
+	 * @return the markup stream.
+	 */
 	protected InputStream getMarkupStream()
 	{
 		final InputStream stream = this.getClass().getResourceAsStream(this.getClass().getSimpleName() + ".html");

@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import se.marza.swf.framework.renderer.HTMLParserPageRenderer;
+import se.marza.swf.framework.renderer.PageRenderer;
 
 /**
  *
@@ -17,8 +19,17 @@ public abstract class SwfApplication
 {
 	private final Set<IRequestCodingStrategy> strategies = new HashSet<IRequestCodingStrategy>();
 	private Class<? extends AbstractPage> notFoundPageClass = null;
+	private Class<? extends AbstractPage> errorPageClass = null;
+	private PageRenderer pageRenderer = HTMLParserPageRenderer.INSTANCE;
 
-	public Response resolve(final HttpServletRequest request, final HttpServletResponse response)
+	/**
+	 * Resolves a request.
+	 *
+	 * @param request the servlet request.
+	 * @param response the servlet response.
+	 * @return the response.
+	 */
+	public final Response resolve(final HttpServletRequest request, final HttpServletResponse response)
 	{
 		for (final IRequestCodingStrategy strategy : this.strategies)
 		{
@@ -31,27 +42,68 @@ public abstract class SwfApplication
 		return null;
 	}
 
-	protected void mountPage(final String mountPath, final Class<? extends AbstractPage> pageClass)
+	/**
+	 * Mounts a page.
+	 *
+	 * @param mountPath the mount path.
+	 * @param pageClass the page class.
+	 */
+	protected final void mountPage(final String mountPath, final Class<? extends AbstractPage> pageClass)
 	{
 		this.mount(new PageRequestCodingStrategy(mountPath, pageClass));
 	}
 
-	protected void mount(final IRequestCodingStrategy strategy)
+	/**
+	 * Mounts a request strategy.
+	 *
+	 * @param strategy the request strategy.
+	 */
+	protected final void mount(final IRequestCodingStrategy strategy)
 	{
 		this.strategies.add(strategy);
 	}
 
-	protected void setNotFoundPageClass(final Class<? extends AbstractPage> pageClass)
+	/**
+	 * Sets the 404 page.
+	 *
+	 * @param pageClass the page class.
+	 */
+	protected final void setNotFoundPageClass(final Class<? extends AbstractPage> pageClass)
 	{
 		this.notFoundPageClass = pageClass;
 	}
 
-	public Class<? extends AbstractPage> getNotFoundPageClass()
+	/**
+	 * Returns the 404 page class.
+	 *
+	 * @return the page class.
+	 */
+	public final Class<? extends AbstractPage> getNotFoundPageClass()
 	{
 		return this.notFoundPageClass;
 	}
 
-	public String getUrlForPage(final Class<? extends AbstractPage> pageClass, final HttpServletRequest request)
+	/**
+	 * Sets the error page class.
+	 *
+	 * @param pageClass the page class.
+	 */
+	protected final void setErrorPageClass(final Class<? extends AbstractPage> pageClass)
+	{
+		this.errorPageClass = pageClass;
+	}
+
+	/**
+	 * Returns the error page class.
+	 *
+	 * @return the page class.
+	 */
+	public final Class<? extends AbstractPage> getErrorPageClass()
+	{
+		return this.errorPageClass;
+	}
+
+	public String getUrlForPage(final Class<? extends AbstractPage> pageClass)
 	{
 		for (final IRequestCodingStrategy strategy : this.strategies)
 		{
@@ -61,7 +113,7 @@ public abstract class SwfApplication
 
 				if (pageStrategy.getPageClass().equals(pageClass))
 				{
-					return pageStrategy.getPageURL(request);
+					return pageStrategy.getMountPath();
 				}
 			}
 		}
@@ -69,8 +121,33 @@ public abstract class SwfApplication
 		return null;
 	}
 
+	/**
+	 * @see SwfApplication#get()
+	 *
+	 * @return the application.
+	 */
 	public static SwfApplication get()
 	{
 		return SwfFilter.getApplication();
+	}
+
+	/**
+	 * Returns the page renderer.
+	 *
+	 * @return the page renderer.
+	 */
+	public final PageRenderer getPageRenderer()
+	{
+		return this.pageRenderer;
+	}
+
+	/**
+	 * Sets the page renderer.
+	 *
+	 * @param renderer the page renderer.
+	 */
+	public void setPageRenderer(final PageRenderer renderer)
+	{
+		this.pageRenderer = renderer;
 	}
 }

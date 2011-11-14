@@ -1,8 +1,8 @@
 package se.marza.swf.framework.strategy;
 
-import se.marza.swf.framework.response.Response;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import se.marza.swf.framework.response.Response;
 
 /**
  *

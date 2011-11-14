@@ -4,9 +4,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import se.marza.swf.framework.page.AbstractPage;
 import se.marza.swf.framework.factory.PageFactory;
-import se.marza.swf.framework.response.Response;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import se.marza.swf.framework.response.PageResponse;
+import se.marza.swf.framework.response.Response;
 
 /**
  *
@@ -64,13 +65,13 @@ public class PageRequestCodingStrategy implements IRequestCodingStrategy
 	@Override
 	public Response response(final HttpServletRequest request, final HttpServletResponse response)
 	{
-		final Response page = PageFactory.createPage(this.pageClass);
+		final AbstractPage page = PageFactory.createPage(this.pageClass);
 
 		if (page != null)
 		{
 			response.setHeader("Content-Type", "text/html;charset=utf-8");
 
-			return page;
+			return new PageResponse(page);
 		}
 
 		throw new RuntimeException("Failed to initialise page class");
@@ -109,19 +110,28 @@ public class PageRequestCodingStrategy implements IRequestCodingStrategy
 		return false;
 	}
 
+	/**
+	 * Returns the mount path.
+	 *
+	 * @return the mount path.
+	 */
 	public String getMountPath()
 	{
 		return this.mountPath;
+	}
+	/**
+	 * Returns the page class.
+	 *
+	 * @return the page class.
+	 */
+	public Class<? extends AbstractPage> getPageClass()
+	{
+		return this.pageClass;
 	}
 
 	public String getPageURL(final HttpServletRequest request)
 	{
 		return createAbsoluteUrlFromRelative(request, this.mountPath);
-	}
-
-	public Class<? extends AbstractPage> getPageClass()
-	{
-		return this.pageClass;
 	}
 
   /**
