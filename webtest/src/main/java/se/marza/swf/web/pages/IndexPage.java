@@ -1,6 +1,7 @@
 package se.marza.swf.web.pages;
 
 import se.marza.swf.framework.components.BookmarkableLink;
+import se.marza.swf.framework.components.CSSHeaderContributor;
 import se.marza.swf.framework.page.AbstractPage;
 
 /**
@@ -12,5 +13,7 @@ public class IndexPage extends AbstractPage
 	public IndexPage()
 	{
 		this.add(new BookmarkableLink("other-link", OtherPage.class));
+
+		this.add(new CSSHeaderContributor("style.css"));
 	}
 }
