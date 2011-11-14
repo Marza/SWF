@@ -28,7 +28,7 @@ public class PageRequestCodingStrategy implements IRequestCodingStrategy
 	 */
 	public PageRequestCodingStrategy(final String mountPath, final Class<? extends AbstractPage> pageClass)
 	{
-		if (mountPath == null || pageClass == null)
+		if (mountPath == null || mountPath.isEmpty() || pageClass == null)
 		{
 			throw new IllegalArgumentException();
 		}
@@ -115,7 +115,7 @@ public class PageRequestCodingStrategy implements IRequestCodingStrategy
 	 *
 	 * @return the mount path.
 	 */
-	public String getMountPath()
+	public String mountPath()
 	{
 		return this.mountPath;
 	}
@@ -124,7 +124,7 @@ public class PageRequestCodingStrategy implements IRequestCodingStrategy
 	 *
 	 * @return the page class.
 	 */
-	public Class<? extends AbstractPage> getPageClass()
+	public Class<? extends AbstractPage> pageClass()
 	{
 		return this.pageClass;
 	}

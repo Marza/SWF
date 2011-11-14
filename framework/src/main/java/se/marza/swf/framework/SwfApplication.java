@@ -121,9 +121,9 @@ public abstract class SwfApplication
 			{
 				final PageRequestCodingStrategy pageStrategy = (PageRequestCodingStrategy) strategy;
 
-				if (pageStrategy.getPageClass().equals(pageClass))
+				if (pageStrategy.pageClass().equals(pageClass))
 				{
-					return pageStrategy.getMountPath();
+					return pageStrategy.mountPath();
 				}
 			}
 		}
