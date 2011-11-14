@@ -15,8 +15,8 @@ import se.marza.swf.framework.response.Response;
  */
 public class PageRequestCodingStrategy implements IRequestCodingStrategy
 {
-  private static final Pattern pattern = Pattern.compile("(\\.\\./)");
-
+	private static final Pattern pattern = Pattern.compile("(\\.\\./)");
+	
 	private final String mountPath;
 	private final Class<? extends AbstractPage> pageClass;
 
@@ -119,6 +119,7 @@ public class PageRequestCodingStrategy implements IRequestCodingStrategy
 	{
 		return this.mountPath;
 	}
+
 	/**
 	 * Returns the page class.
 	 *
@@ -134,45 +135,45 @@ public class PageRequestCodingStrategy implements IRequestCodingStrategy
 		return createAbsoluteUrlFromRelative(request, this.mountPath);
 	}
 
-  /**
-   * Creates an absolute URL from a relative URL.
-   *
-   * Steps through a relative URL and searches for ../ and modifies the <code>requestUrl</code> accordingly.
-   *
-   * @param request the HttpServletRequest.
-   * @param relativeUrl the relative URL for the link.
-   * @return the absolute URL.
-   */
-  public static String createAbsoluteUrlFromRelative(final HttpServletRequest request, final String relativeUrl)
-  {
-    String requestUrl = createRealRequestUrl(request);
+	/**
+	 * Creates an absolute URL from a relative URL.
+	 *
+	 * Steps through a relative URL and searches for ../ and modifies the <code>requestUrl</code> accordingly.
+	 *
+	 * @param request the HttpServletRequest.
+	 * @param relativeUrl the relative URL for the link.
+	 * @return the absolute URL.
+	 */
+	public static String createAbsoluteUrlFromRelative(final HttpServletRequest request, final String relativeUrl)
+	{
+		String requestUrl = createRealRequestUrl(request);
 
-    final Matcher matcher = pattern.matcher(relativeUrl);
+		final Matcher matcher = pattern.matcher(relativeUrl);
 
-    int index = requestUrl.lastIndexOf('/');
-    if (index > 8)
-    {
-      requestUrl = requestUrl.substring(0, index);
-    }
+		int index = requestUrl.lastIndexOf('/');
+		if (index > 8)
+		{
+			requestUrl = requestUrl.substring(0, index);
+		}
 
-    while (matcher.find())
-    {
-      index = requestUrl.lastIndexOf('/');
-      if (index > 8)
-      {
-        requestUrl = requestUrl.substring(0, index);
-      }
-    }
+		while (matcher.find())
+		{
+			index = requestUrl.lastIndexOf('/');
+			if (index > 8)
+			{
+				requestUrl = requestUrl.substring(0, index);
+			}
+		}
 
-    /*if (requestUrl.charAt(requestUrl.length()-1) != '/')
-    {
-      requestUrl = requestUrl.concat("/");
-    }*/
+		/*if (requestUrl.charAt(requestUrl.length()-1) != '/')
+		{
+		requestUrl = requestUrl.concat("/");
+		}*/
 
-    requestUrl = requestUrl.concat(matcher.replaceAll(""));
+		requestUrl = requestUrl.concat(matcher.replaceAll(""));
 
-    return requestUrl;
-  }
+		return requestUrl;
+	}
 
 	public static String createRealRequestUrl(final HttpServletRequest request)
 	{
