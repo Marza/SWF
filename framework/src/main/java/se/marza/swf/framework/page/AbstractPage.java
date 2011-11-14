@@ -10,7 +10,6 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import se.marza.swf.framework.components.Component;
-import se.marza.swf.framework.components.HeaderContributor;
 
 /**
  *
@@ -19,7 +18,6 @@ import se.marza.swf.framework.components.HeaderContributor;
 public abstract class AbstractPage
 {
 	private final Set<Component> components = new HashSet<Component>();
-	private final Set<HeaderContributor> headers = new HashSet<HeaderContributor>();
 
 	/**
 	 * Adds a component to the page.
@@ -47,34 +45,6 @@ public abstract class AbstractPage
 	public final Set<Component> getComponents()
 	{
 		return Collections.unmodifiableSet(this.components);
-	}
-
-	/**
-	 * Adds a header contributor to the page.
-	 *
-	 * @param header the header contributor to add.
-	 * @return this page.
-	 */
-	protected final AbstractPage add(final HeaderContributor header)
-	{
-		if (header == null)
-		{
-			throw new IllegalArgumentException("Component cannot be null.");
-		}
-
-		this.headers.add(header);
-
-		return this;
-	}
-
-	/**
-	 * Returns the header contributors.
-	 *
-	 * @return the header contributors.
-	 */
-	public final Set<HeaderContributor> getHeaderContributors()
-	{
-		return Collections.unmodifiableSet(this.headers);
 	}
 
 	/**
