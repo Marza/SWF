@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import se.marza.swf.framework.renderer.HTMLParserPageRenderer;
 import se.marza.swf.framework.renderer.PageRenderer;
+import se.marza.swf.framework.util.NetUtil;
 
 /**
  *
@@ -113,8 +114,18 @@ public abstract class SwfApplication
 		return this.errorPageClass;
 	}
 
-	public String getUrlForPage(final Class<? extends AbstractPage> pageClass)
+	/**
+	 * Returns the relative URL for a page based on current URL.
+	 *
+	 * @param currentPage the current page class.
+	 * @param pageClass the page class to get the URL for.
+	 * @return the relative URL.
+	 */
+	public String getUrlForPage(final Class<? extends AbstractPage> currentPage, final Class<? extends AbstractPage> pageClass)
 	{
+		String currentPath = null;
+		String pagePath = null;
+
 		for (final IRequestCodingStrategy strategy : this.strategies)
 		{
 			if (strategy instanceof PageRequestCodingStrategy)
@@ -123,9 +134,18 @@ public abstract class SwfApplication
 
 				if (pageStrategy.pageClass().equals(pageClass))
 				{
-					return pageStrategy.mountPath();
+					pagePath = pageStrategy.mountPath();
+				}
+				if (pageStrategy.pageClass().equals(currentPage))
+				{
+					currentPath = pageStrategy.mountPath();
 				}
 			}
+		}
+
+		if (currentPath != null && pagePath != null)
+		{
+			return NetUtil.linkUrl(currentPath, pagePath);
 		}
 
 		return null;

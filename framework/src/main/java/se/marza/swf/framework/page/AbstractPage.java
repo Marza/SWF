@@ -1,7 +1,6 @@
 package se.marza.swf.framework.page;
 
 import se.marza.swf.framework.Logger;
-import se.marza.swf.framework.response.Response;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
@@ -10,6 +9,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import se.marza.swf.framework.components.Component;
+import se.marza.swf.framework.components.MarkupComponent;
 
 /**
  *
@@ -18,6 +18,21 @@ import se.marza.swf.framework.components.Component;
 public abstract class AbstractPage
 {
 	private final Set<Component> components = new HashSet<Component>();
+
+	/**
+	 * Adds a component to the page.
+	 *
+	 * @param component the component to add.
+	 * @return this page.
+	 */
+	protected final AbstractPage add(final MarkupComponent component)
+	{
+		this.add((Component)component);
+
+		component.setPage(this);
+
+		return this;
+	}
 
 	/**
 	 * Adds a component to the page.
