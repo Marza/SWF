@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 
 	<properties>
-    <swf.version>0.1</swf.version>
-    <swf.framework.version>0.1</swf.framework.version>
-    <swf.webtest.version>0.1</swf.webtest.version>
+		<swf.version>0.1</swf.version>
+		<swf.framework.version>0.1</swf.framework.version>
+		<swf.webtest.version>0.1</swf.webtest.version>
 	</properties>
 
-  <groupId>se.marza</groupId>
-  <artifactId>swf</artifactId>
-  <packaging>pom</packaging>
+	<groupId>se.marza</groupId>
+	<artifactId>swf</artifactId>
+	<packaging>pom</packaging>
 	<!-- Do not change this version. It is only used as reference between modules. -->
-  <version>main</version>
-  <name>SWF</name>
+	<version>main</version>
+	<name>SWF</name>
 
-  <modules>
-    <module>framework</module>
-    <module>webtest</module>
-  </modules>
+	<modules>
+		<module>framework</module>
+		<module>webtest</module>
+	</modules>
 
 	<repositories>
 		<repository>
@@ -28,7 +28,7 @@
 		</repository>
 	</repositories>
 
-  <dependencies>
+	<dependencies>
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
@@ -40,21 +40,26 @@
 			<artifactId>htmlparser</artifactId>
 			<version>2.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.6.1</version>
+		</dependency>
 
     <!-- test dependency -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.10</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
-      <version>1.8.5</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.8.5</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<pluginManagement>
