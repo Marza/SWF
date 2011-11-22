@@ -27,4 +27,13 @@ public interface IRequestCodingStrategy
 	 * @return the response.
 	 */
 	Response response(HttpServletRequest request, HttpServletResponse response);
+
+	/**
+	 * Returns the mount path.
+	 *
+	 * @return the mount path.
+	 */
+	String mountPath();
+
+	Class<?> clazz();
 }

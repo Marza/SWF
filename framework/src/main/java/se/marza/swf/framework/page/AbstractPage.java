@@ -9,7 +9,10 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import se.marza.swf.framework.components.Component;
+import se.marza.swf.framework.components.HeaderComponent;
 import se.marza.swf.framework.components.MarkupComponent;
+import se.marza.swf.framework.components.Stylesheet;
+import se.marza.swf.framework.response.Response;
 
 /**
  *
@@ -18,6 +21,7 @@ import se.marza.swf.framework.components.MarkupComponent;
 public abstract class AbstractPage
 {
 	private final Set<Component> components = new HashSet<Component>();
+	private final Set<HeaderComponent> headers = new HashSet<HeaderComponent>();
 
 	/**
 	 * Adds a component to the page.
@@ -53,6 +57,26 @@ public abstract class AbstractPage
 	}
 
 	/**
+	 * Adds a header component to the page.
+	 *
+	 * @param component the header component to add.
+	 * @return this page.
+	 */
+	protected final AbstractPage add(final Stylesheet component)
+	{
+		if (component == null)
+		{
+			throw new IllegalArgumentException("Component cannot be null.");
+		}
+
+		component.setPage(this);
+
+		this.headers.add(component);
+
+		return this;
+	}
+
+	/**
 	 * Returns the components.
 	 *
 	 * @return the components.
@@ -60,6 +84,16 @@ public abstract class AbstractPage
 	public final Set<Component> getComponents()
 	{
 		return Collections.unmodifiableSet(this.components);
+	}
+
+	/**
+	 * Returns the header components.
+	 *
+	 * @return the header components.
+	 */
+	public final Set<HeaderComponent> getHeaders()
+	{
+		return Collections.unmodifiableSet(this.headers);
 	}
 
 	/**

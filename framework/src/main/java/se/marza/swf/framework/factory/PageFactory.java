@@ -1,5 +1,6 @@
 package se.marza.swf.framework.factory;
 
+import se.marza.swf.framework.components.Stylesheet;
 import se.marza.swf.framework.page.AbstractPage;
 
 /**
@@ -24,5 +25,11 @@ public final class PageFactory
 	public static <T extends AbstractPage> T createPage(final Class<T> pageClass)
 	{
 		return (T) ClassFactory.createClass(pageClass);
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T extends Stylesheet> T createStylesheet(final Class<T> styleSheet)
+	{
+		return (T) ClassFactory.createClass(styleSheet);
 	}
 }

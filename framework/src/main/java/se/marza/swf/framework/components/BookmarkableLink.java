@@ -70,6 +70,6 @@ public class BookmarkableLink extends MarkupComponent
 	@Override
 	public String markupAttributeValue()
 	{
-		return SwfApplication.get().getUrlForPage(this.getPage().getClass(), this.page);
+		return SwfApplication.get().getUrlForResource(this.getPage().getClass(), this.page);
 	}
 }

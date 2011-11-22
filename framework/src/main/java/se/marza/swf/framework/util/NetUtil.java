@@ -31,31 +31,41 @@ public final class NetUtil
 		final List<String> currentList = splitPath(currentPath);
 		final List<String> toList = splitPath(toPath);
 
-		if (currentList.size() == toList.size() + 1)
-		{
-			return "./";
-		}
-
 		final StringBuilder builder = new StringBuilder();
-		for (int i = 0; i < (currentList.size() - toList.size() - 1); i++)
-		{
-			builder.append("../");
-		}
 
-		if (toList.size() > 0)
+		int sizeEqual = 0;
+		for (int i = 0; i < currentList.size() && i < toList.size(); i++)
 		{
-			for (int i = 0; i < toList.size(); i++)
+			if (currentList.get(i).equals(toList.get(i)))
 			{
-				final String pagePart = toList.get(i);
-				if (currentList.size() <= i || !pagePart.equals(currentList.get(i)))
-				{
-					builder.append(pagePart);
-					builder.append('/');
-				}
+				sizeEqual++;
 			}
-
-			builder.deleteCharAt(builder.length() - 1);
+			else
+			{
+				break;
+			}
 		}
+
+		final int doubleDots = currentList.size() - sizeEqual - 1;
+		if (doubleDots > 0)
+		{
+			for (int i = 0; i < doubleDots; i++)
+			{
+				builder.append("../");
+			}
+		}
+		else
+		{
+			builder.append("./");
+		}
+
+		for (int i = sizeEqual; i < toList.size(); i++)
+		{
+			builder.append(toList.get(i));
+			builder.append('/');
+		}
+
+		builder.deleteCharAt(builder.length() - 1);
 
 		return builder.toString();
 	}

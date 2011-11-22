@@ -115,37 +115,33 @@ public abstract class SwfApplication
 	}
 
 	/**
-	 * Returns the relative URL for a page based on current URL.
+	 * Returns the relative URL for a resource based on current URL.
 	 *
 	 * @param currentPage the current page class.
-	 * @param pageClass the page class to get the URL for.
+	 * @param clazz the resource class to get the URL for.
 	 * @return the relative URL.
 	 */
-	public String getUrlForPage(final Class<? extends AbstractPage> currentPage, final Class<? extends AbstractPage> pageClass)
+	public String getUrlForResource(final Class<? extends AbstractPage> currentPage, final Class<?> clazz)
 	{
 		String currentPath = null;
-		String pagePath = null;
+		String resourcePath = null;
 
 		for (final IRequestCodingStrategy strategy : this.strategies)
 		{
-			if (strategy instanceof PageRequestCodingStrategy)
+			if (strategy.clazz().equals(clazz))
 			{
-				final PageRequestCodingStrategy pageStrategy = (PageRequestCodingStrategy) strategy;
-
-				if (pageStrategy.pageClass().equals(pageClass))
-				{
-					pagePath = pageStrategy.mountPath();
-				}
-				if (pageStrategy.pageClass().equals(currentPage))
-				{
-					currentPath = pageStrategy.mountPath();
-				}
+				resourcePath = strategy.mountPath();
+			}
+			
+			if (strategy.clazz().equals(currentPage))
+			{
+				currentPath = strategy.mountPath();
 			}
 		}
 
-		if (currentPath != null && pagePath != null)
+		if (currentPath != null && resourcePath != null)
 		{
-			return NetUtil.linkUrl(currentPath, pagePath);
+			return NetUtil.linkUrl(currentPath, resourcePath);
 		}
 
 		return null;

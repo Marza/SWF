@@ -1,40 +1,36 @@
 package se.marza.swf.framework.strategy;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import se.marza.swf.framework.page.AbstractPage;
 import se.marza.swf.framework.factory.PageFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import se.marza.swf.framework.response.PageResponse;
+import se.marza.swf.framework.components.Stylesheet;
 import se.marza.swf.framework.response.Response;
+import se.marza.swf.framework.response.StringResponse;
 
 /**
  *
  * @author Tony Marjakangas | tony@marza.se
  */
-public class PageRequestCodingStrategy implements IRequestCodingStrategy
+public class StylesheetRequestCodingStrategy implements IRequestCodingStrategy
 {
-	private static final Pattern pattern = Pattern.compile("(\\.\\./)");
-
 	private final String mountPath;
-	private final Class<? extends AbstractPage> pageClass;
+	private final Class<? extends Stylesheet> styleClass;
 
 	/**
 	 * Constructor.
 	 *
 	 * @param mountPath the mount path.
-	 * @param pageClass the page class.
+	 * @param styleClass the stylesheet class.
 	 */
-	public PageRequestCodingStrategy(final String mountPath, final Class<? extends AbstractPage> pageClass)
+	public StylesheetRequestCodingStrategy(final String mountPath, final Class<? extends Stylesheet> styleClass)
 	{
-		if (mountPath == null || mountPath.isEmpty() || pageClass == null)
+		if (mountPath == null || mountPath.isEmpty() || styleClass == null)
 		{
 			throw new IllegalArgumentException();
 		}
 
 		this.mountPath = mountPath;
-		this.pageClass = pageClass;
+		this.styleClass = styleClass;
 	}
 
 	/**
@@ -65,13 +61,13 @@ public class PageRequestCodingStrategy implements IRequestCodingStrategy
 	@Override
 	public Response response(final HttpServletRequest request, final HttpServletResponse response)
 	{
-		final AbstractPage page = PageFactory.createPage(this.pageClass);
+		final Stylesheet page = PageFactory.createStylesheet(this.styleClass);
 
 		if (page != null)
 		{
-			response.setHeader("Content-Type", "text/html;charset=utf-8");
+			response.setHeader("Content-Type", "text/css;charset=utf-8");
 
-			return new PageResponse(page);
+			return new StringResponse(page.css());
 		}
 
 		throw new RuntimeException("Failed to initialise page class");
@@ -85,7 +81,7 @@ public class PageRequestCodingStrategy implements IRequestCodingStrategy
 	@Override
 	public int hashCode()
 	{
-		return (31 + this.mountPath.hashCode()) * 31 + this.pageClass.hashCode();
+		return (31 + this.mountPath.hashCode()) * 31 + this.styleClass.hashCode();
 	}
 
 	/**
@@ -101,10 +97,10 @@ public class PageRequestCodingStrategy implements IRequestCodingStrategy
 		{
 			return true;
 		}
-		else if (object instanceof PageRequestCodingStrategy)
+		else if (object instanceof StylesheetRequestCodingStrategy)
 		{
-			final PageRequestCodingStrategy other = (PageRequestCodingStrategy) object;
-			return this.mountPath.equals(other.mountPath) && this.pageClass.equals(other.pageClass);
+			final StylesheetRequestCodingStrategy other = (StylesheetRequestCodingStrategy) object;
+			return this.mountPath.equals(other.mountPath) && this.styleClass.equals(other.styleClass);
 		}
 
 		return false;
@@ -122,13 +118,13 @@ public class PageRequestCodingStrategy implements IRequestCodingStrategy
 	}
 
 	/**
-	 * Returns the page class.
+	 * Returns the stylesheet class.
 	 *
-	 * @return the page class.
+	 * @return the stylesheet class.
 	 */
 	@Override
-	public Class<? extends AbstractPage> clazz()
+	public Class<? extends Stylesheet> clazz()
 	{
-		return this.pageClass;
+		return this.styleClass;
 	}
 }
