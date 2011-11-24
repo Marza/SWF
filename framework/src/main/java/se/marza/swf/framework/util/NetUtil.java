@@ -47,14 +47,12 @@ public final class NetUtil
 		}
 
 		final int doubleDots = currentList.size() - sizeEqual - 1;
-		if (doubleDots > 0)
+		for (int i = 0; i < doubleDots; i++)
 		{
-			for (int i = 0; i < doubleDots; i++)
-			{
-				builder.append("../");
-			}
+			builder.append("../");
 		}
-		else
+
+		if (doubleDots == 0)
 		{
 			builder.append("./");
 		}
@@ -65,7 +63,10 @@ public final class NetUtil
 			builder.append('/');
 		}
 
-		builder.deleteCharAt(builder.length() - 1);
+		if (builder.length() > 3)
+		{
+			builder.deleteCharAt(builder.length() - 1);
+		}
 
 		return builder.toString();
 	}
