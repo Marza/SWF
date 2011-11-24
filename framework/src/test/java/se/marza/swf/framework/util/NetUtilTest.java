@@ -12,6 +12,8 @@ public final class NetUtilTest
 	@Test
 	public void testLinkUrl()
 	{
+		assertEquals("a", NetUtil.linkUrl("/", "/a"));
+		assertEquals("a/b", NetUtil.linkUrl("/", "/a/b"));
 		assertEquals("./", NetUtil.linkUrl("/a", "/"));
 		assertEquals("../", NetUtil.linkUrl("/a/b", "/"));
 		assertEquals("../a2", NetUtil.linkUrl("/a/b", "/a2"));

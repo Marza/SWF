@@ -63,7 +63,7 @@ public final class NetUtil
 			builder.append('/');
 		}
 
-		if (builder.length() > 3)
+		if (sizeEqual < toList.size())
 		{
 			builder.deleteCharAt(builder.length() - 1);
 		}
