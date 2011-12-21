@@ -23,7 +23,7 @@ public final class ClassFactory
 	{
 		try
 		{
-			return createClass(Class.forName(className));
+			return createClass(ClassFactory.class.getClassLoader().loadClass(className));
 		}
 		catch (final ClassNotFoundException e)
 		{

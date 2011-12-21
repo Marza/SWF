@@ -56,6 +56,10 @@ public final class NetUtil
 		{
 			builder.append("./");
 		}
+		else if (doubleDots < 0)
+		{
+			sizeEqual = Math.max(sizeEqual + doubleDots, 0);
+		}
 
 		for (int i = sizeEqual; i < toList.size(); i++)
 		{
