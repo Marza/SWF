@@ -1,7 +1,7 @@
 package se.marza.swf.framework.util;
 
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * TODO: double check that all these are links generated are valid.
